@@ -43,3 +43,16 @@ body {
     margin-left: 2em;
     display: inline-block;
 }
+
+/* move geoptic structure gui to bottom of div */
+#structure-gui {
+    bottom: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 1.2em !important;
+    box-sizing: border-box;
+}
+
+/* hide geoptic gui */
+#command-gui {
+    display: none !important;
+}

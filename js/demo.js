@@ -1,6 +1,6 @@
 import * as THREE from "https://unpkg.com/three@0.125.1/build/three.module.js";
-// import { Geoptic } from "./geoptic.js/build/geoptic.module.min.js";
-import { Geoptic } from "./geoptic.js/src/geoptic.js";
+import { Geoptic } from "./geoptic.js/build/geoptic.module.min.js";
+// import { Geoptic } from "./geoptic.js/src/geoptic.js";
 
 import { bunny } from "./disk-bunny.js";
 
@@ -27,7 +27,11 @@ let gpSources = undefined;
 let hm = undefined; // HeatMethod object, stores Laplacian factorization
 
 // create geoptic manager
-let geoptic = new Geoptic({ parent: document.getElementById("geoptic-panel") });
+let geoptic = new Geoptic({
+  parent: document.getElementById("geoptic-panel"),
+  picks: false,
+});
+geoptic.structureGui.close();
 
 function initMesh(meshFile) {
   let soup = MeshIO.readOBJ(meshFile);
@@ -47,8 +51,9 @@ function runVertexCode() {
   for (let v of geo.mesh.vertices) {
     vertexValues.push(vertexFunction(geo, v));
   }
-  const q = gpMesh.addVertexScalarQuantity("function", vertexValues);
+  const q = gpMesh.addVertexScalarQuantity("vertexFunction", vertexValues);
   q.setEnabled(true);
+  q.guiFolder.open();
 }
 
 geoptic.userCallback = () => {};
@@ -59,7 +64,6 @@ runVertexCode();
 document.getElementById("run-button").onclick = runVertexCode;
 
 geoptic.doneLoading();
-geoptic.message("Done loading");
 
 // Load the meshes and set up our state
 // walkMesh(bunny);

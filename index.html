@@ -91,9 +91,17 @@ function vertexFunction(geo, vertex) {
   </div>
 
 
-  <script src="https://pagecdn.io/lib/ace/1.4.5/ace.js" integrity="sha256-5Xkhn3k/1rbXB+Q/DX/2RuAtaB4dRRyQvMs83prFjpM=" crossorigin="anonymous"></script>
+  <script src="https://pagecdn.io/lib/ace/1.4.12/ace.js"></script>
+  <!-- load ace language tools -->
+  <script src="https://pagecdn.io/lib/ace/1.4.12/ext-language_tools.min.js"></script>
   <script type="text/javascript">
-    var editor = ace.edit("editor");
+   var editor = ace.edit("editor");
+   editor.setOptions({
+       enableBasicAutocompletion: true,
+       enableSnippets: true,
+       enableLiveAutocompletion: true
+   });
+   editor.setShowPrintMargin(false);
     editor.setTheme(document.getElementById("color-scheme-select").selectedOptions[0].value);
     editor.session.setMode("ace/mode/javascript");
     if (document.getElementById("kb-ace").checked){
