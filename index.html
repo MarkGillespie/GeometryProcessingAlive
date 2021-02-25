@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Geometry Processing Alive!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="js/geoptic.js/src/style.css">
+</head>
+
+<body>
+    <h2 id="title">Geometry Processing Alive!</h2>
+  <div id="logo">
+    <a href="https://geometrycollective.github.io/geometry-processing-js/" target="_blank">
+      <img src="js/geometry-processing-js/imgs/logo.png" width="80" height="80" border="0">
+    </a>
+  </div>
+
+  <pre id="editor">/*
+ * This function will be run on every vertex
+ * and plotted to the right.
+ */
+function vertexFunction(geo, vertex) {
+    return geo.positions[vertex].x;
+}</pre>
+  <div id="geoptic-panel">
+      <div class="lds-roller" id="spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <button id="run-button">Run Code</button>
+
+  Keybindings:
+  <input type="radio" id="kb-sublime" name="keybindings" value="kb-sublime" checked>
+  <label for="kb-sublime">Sublime</label>
+  <input type="radio" id="kb-ace" name="keybindings" value="kb-ace">
+  <label for="kb-ace">Ace</label>
+  <input type="radio" id="kb-vim" name="keybindings" value="kb-vim">
+  <label for="kb-vim">Vim</label>
+
+
+  <script src="https://pagecdn.io/lib/ace/1.4.5/ace.js" integrity="sha256-5Xkhn3k/1rbXB+Q/DX/2RuAtaB4dRRyQvMs83prFjpM=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    editor.setKeyboardHandler("ace/keyboard/sublime");
+
+    document.getElementById("kb-sublime").addEventListener("change", (e)=>{
+        if (document.getElementById("kb-sublime").checked){
+            editor.setKeyboardHandler("ace/keyboard/sublime");
+        }
+    });
+   document.getElementById("kb-ace").addEventListener("change", (e)=>{
+       if (document.getElementById("kb-ace").checked){
+           editor.setKeyboardHandler("");
+       }
+   });
+    document.getElementById("kb-vim").addEventListener("change", (e)=>{
+        if (document.getElementById("kb-vim").checked){
+            editor.setKeyboardHandler("ace/keyboard/vim");
+        }
+    });
+
+   // Helper to grab the definition of vertexFunction()
+   // We can't do this inside js/demo.js since that's a module, which is in "strict mode"
+   // In strict mode, eval gets its own context, and you can't access variabled defined in the string from outside that context
+   function extractVertexFunction() {
+       const fnString = editor.getSession().getValue();
+       eval(fnString);
+       return vertexFunction;
+   }
+  </script>
+  <script type="module" src="js/demo.js"></script>
+</body>
+
+</html>

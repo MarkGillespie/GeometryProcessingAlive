@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+#logo {
+  position: absolute;
+  bottom: 10px;
+  right: 40px;
+  opacity: 0.8;
+  z-index: 4;
+}
+
+#title {
+    width: 100%;
+    text-align: center;
+}
+
+#geoptic-panel {
+    position:relative; /* needed to place child panels relative to this one */
+    width: 49vw;
+    height: 49vw;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0;
+    z-index: 2;
+}
+
+#editor {
+    margin: 0;
+    position: relative;
+    width: 49vw;
+    height: 49vw;
+    padding-top: 0.5em;
+    display: inline-block;
+    box-sizing: border-box;
+}
