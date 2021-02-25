@@ -38,3 +38,8 @@ body {
     display: inline-block;
     box-sizing: border-box;
 }
+
+.settings-bar div{
+    margin-left: 2em;
+    display: inline-block;
+}
