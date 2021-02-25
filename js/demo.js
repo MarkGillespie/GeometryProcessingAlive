@@ -5,26 +5,15 @@ import { Geoptic } from "./geoptic.js/build/geoptic.module.min.js";
 import { bunny } from "./disk-bunny.js";
 
 import {
-  Vector,
   Mesh,
   MeshIO,
   Geometry,
-  indexElements,
-  DenseMatrix,
-  memoryManager,
-  SpectralConformalParameterization,
-  HeatMethod,
 } from "./geometry-processing-js/build/geometry-processing.module.min.js";
 
 let mesh = undefined;
 let geo = undefined;
-let sources = [];
-let sourceIndices = [];
 
 let gpMesh = undefined;
-let gpSources = undefined;
-
-let hm = undefined; // HeatMethod object, stores Laplacian factorization
 
 // create geoptic manager
 let geoptic = new Geoptic({
@@ -44,8 +33,6 @@ function initMesh(meshFile) {
 }
 
 function runVertexCode() {
-  // TODO: is this a bad idea?
-  // console.log(editor.getSession().getValue());
   const vertexFunction = extractVertexFunction();
   const vertexValues = [];
   for (let v of geo.mesh.vertices) {
@@ -56,8 +43,6 @@ function runVertexCode() {
   q.guiFolder.open();
 }
 
-geoptic.userCallback = () => {};
-
 // Load the bunny mesh
 initMesh(bunny);
 runVertexCode();
@@ -65,9 +50,5 @@ document.getElementById("run-button").onclick = runVertexCode;
 
 geoptic.doneLoading();
 
-// Load the meshes and set up our state
-// walkMesh(bunny);
-
 // Start animating with geoptic
-// This will call geoptic.userCallback() every frame
 geoptic.animate();
