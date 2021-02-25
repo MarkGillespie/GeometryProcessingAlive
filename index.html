@@ -32,17 +32,24 @@ function vertexFunction(geo, vertex) {
   <button id="run-button">Run Code</button>
 
   <div>
-    Keybindings:
-    <input type="radio" id="kb-sublime" name="keybindings" value="kb-sublime" checked>
-    <label for="kb-sublime">Sublime</label>
-    <input type="radio" id="kb-ace" name="keybindings" value="kb-ace">
-    <label for="kb-ace">Ace</label>
-    <input type="radio" id="kb-vim" name="keybindings" value="kb-vim">
-    <label for="kb-vim">Vim</label>
+      <!-- Keybindings:
+           <input type="radio" id="kb-sublime" name="keybindings" value="kb-sublime" checked>
+           <label for="kb-sublime">Sublime</label>
+           <input type="radio" id="kb-ace" name="keybindings" value="kb-ace">
+           <label for="kb-ace">Ace</label>
+           <input type="radio" id="kb-vim" name="keybindings" value="kb-vim">
+           <label for="kb-vim">Vim</label>
+      -->
+    <label for="keybindings-select">Keybindings:</label>
+    <select name="keybindings" id="keybindings-select">
+        <option value="ace/keyboard/sublime">Sublime</option>
+        <option value="">Ace</option>
+        <option value="ace/keyboard/vim">Vim</option>
+    </select>
   </div>
 
   <div>
-    <label for="color-scheme-select">Choose a color scheme:</label>
+    <label for="color-scheme-select">Color scheme:</label>
     <select name="color-schemes" id="color-scheme-select">
         <optgroup label="Bright">
             <option value="ace/theme/chrome">Chrome</option>
@@ -95,42 +102,23 @@ function vertexFunction(geo, vertex) {
   <!-- load ace language tools -->
   <script src="https://pagecdn.io/lib/ace/1.4.12/ext-language_tools.min.js"></script>
   <script type="text/javascript">
-   var editor = ace.edit("editor");
-   editor.setOptions({
-       enableBasicAutocompletion: true,
-       enableSnippets: true,
-       enableLiveAutocompletion: true
-   });
-   editor.setShowPrintMargin(false);
+    var editor = ace.edit("editor");
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+    editor.setShowPrintMargin(false);
     editor.setTheme(document.getElementById("color-scheme-select").selectedOptions[0].value);
     editor.session.setMode("ace/mode/javascript");
-    if (document.getElementById("kb-ace").checked){
-        editor.setKeyboardHandler("");
-    } else if (document.getElementById("kb-vim").checked){
-        editor.setKeyboardHandler("ace/keyboard/vim");
-    } else {
-        editor.setKeyboardHandler("ace/keyboard/sublime");
-    }
+    editor.setKeyboardHandler(document.getElementById("keybindings-select").selectedOptions[0].value);
 
-
-    document.getElementById("kb-sublime").addEventListener("change", (e)=>{
-        if (document.getElementById("kb-sublime").checked){
-            editor.setKeyboardHandler("ace/keyboard/sublime");
-        }
+    document.getElementById("keybindings-select").addEventListener("change", (e)=>{
+        editor.setKeyboardHandler(e.target.selectedOptions[0].value);
     });
-   document.getElementById("kb-ace").addEventListener("change", (e)=>{
-       if (document.getElementById("kb-ace").checked){
-           editor.setKeyboardHandler("");
-       }
-   });
-    document.getElementById("kb-vim").addEventListener("change", (e)=>{
-        if (document.getElementById("kb-vim").checked){
-            editor.setKeyboardHandler("ace/keyboard/vim");
-        }
+    document.getElementById("color-scheme-select").addEventListener("change", (e)=>{
+        editor.setTheme(e.target.selectedOptions[0].value);
     });
-   document.getElementById("color-scheme-select").addEventListener("change", (e)=>{
-       editor.setTheme(e.target.selectedOptions[0].value);
-   });
 
    // Helper to grab the definition of vertexFunction()
    // We can't do this inside js/demo.js since that's a module, which is in "strict mode"
