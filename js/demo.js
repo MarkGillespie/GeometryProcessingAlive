@@ -4,11 +4,11 @@ import { Geoptic } from "./geoptic.js/src/geoptic.js";
 
 import { bunny } from "./disk-bunny.js";
 
-import {
-  Mesh,
-  MeshIO,
-  Geometry,
-} from "./geometry-processing-js/build/geometry-processing.module.min.js";
+// import {
+//   Mesh,
+//   MeshIO,
+//   Geometry,
+// } from "./geometry-processing-js/build/geometry-processing.module.min.js";
 
 let mesh = undefined;
 let geo = undefined;
