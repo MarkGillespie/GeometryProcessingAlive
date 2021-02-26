@@ -1,3 +1,5 @@
+
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -6,17 +8,39 @@ body {
   min-height: 100vh;
 }
 
-#logo {
-  position: absolute;
-  bottom: 10px;
-  right: 40px;
-  opacity: 0.8;
-  z-index: 4;
+.header {
+    height: 80px;
+
+    /* Center title */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+
+    background-color: #1b1f8a10;
+    box-shadow: 0px 0px 8px #0003;
+    position: relative;
+    z-index: 6;
+}
+
+.settings-bar {
+    background-color: #1b1f8a10;
+    box-shadow: 0px -1px 3px #0002;
+    position: relative;
+    z-index: 6;
+    padding: 0.25em;
 }
 
 #title {
-    width: 100%;
     text-align: center;
+}
+
+#logos {
+  opacity: 0.8;
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .resizeable {
