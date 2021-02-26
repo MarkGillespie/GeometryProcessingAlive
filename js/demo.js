@@ -87,7 +87,6 @@ const mouseMoveHandler = function (e) {
   // How far the mouse has been moved
   const dx = e.clientX - x;
   const dy = e.clientY - y;
-  console.log(e.clientX, dx);
 
   const newRightWidth =
     ((rightWidth - dx) * 100) /
