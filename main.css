@@ -19,24 +19,56 @@ body {
     text-align: center;
 }
 
-#geoptic-panel {
-    position:relative; /* needed to place child panels relative to this one */
-    width: 49vw;
-    height: 49vw;
-    display: inline-block;
-    box-sizing: border-box;
-    margin: 0;
-    z-index: 2;
+.resizeable {
+    display: flex;
+    width: 100%;
+}
+
+#resizer {
+    width: 0.75em;
+    background-color: #ddd;
+    overflow: visible;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    z-index: 4;
+
+    box-shadow: 0px 0px 8px #0003;
+}
+
+#resizer::after {
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.3em;
+    border-radius: 1.5em;
+    background-color: #eee;
+    color: #444;
+    border: solid 5px #ddd;
+    content: '‹ ›';
+    position: absolute;
+    top: 50%;
+    left: -0.625em;
+    z-index: 5;
+
+    box-shadow: 0px 0px 8px #0003;
 }
 
 #editor {
     margin: 0;
     position: relative;
-    width: 49vw;
-    height: 49vw;
+    height: 50vw;
     padding-top: 0.5em;
-    display: inline-block;
     box-sizing: border-box;
+    flex: 1 1 0%;
+}
+
+#geoptic-panel {
+    position:relative; /* needed to place child panels relative to this one */
+    width: 49vw;
+    height: 50vw;
+    box-sizing: border-box;
+    margin: 0;
+    z-index: 2;
 }
 
 .settings-bar div{
