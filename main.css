@@ -97,6 +97,30 @@ body {
     z-index: 2;
 }
 
+@media only screen and (max-width: 800px)  {
+    .resizeable {
+        flex-direction: column-reverse;
+    }
+    #resizer {
+        display: none;
+    }
+    #editor {
+        height: 50vw;
+        width: 100%;
+        flex: 0 1 auto;
+    }
+    #geoptic-panel {
+        height: 50vw;
+
+        /* js sets width in two-column mode. Use !important
+         * to override that in single-column mode */
+        width: 100% !important;
+    }
+    #title {
+        font-size: 1.3em;
+    }
+}
+
 .settings-bar div{
     margin-left: 2em;
     display: inline-block;
@@ -113,4 +137,9 @@ body {
 /* hide geoptic gui */
 #command-gui {
     display: none !important;
+}
+
+/* Hide geoptic message box. It interferes with clicks sometimes */
+#messages {
+    display: none;
 }
