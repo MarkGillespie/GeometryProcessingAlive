@@ -99,8 +99,11 @@ function vertexFunction(geo, vertex) {
   </div>
 
 
-  <script src="./js/geometry-processing-js/build/geometry-processing.min.js"></script>
   <script src="https://pagecdn.io/lib/ace/1.4.12/ace.js"></script>
+  <!-- Preload monokai (default color scheme) and mode-javascript -->
+  <script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.js"></script>
+  <script src="https://pagecdn.io/lib/ace/1.4.12/mode-javascript.js"></script>
+
   <!-- load ace language tools -->
   <script src="https://pagecdn.io/lib/ace/1.4.12/ext-language_tools.min.js"></script>
   <script type="text/javascript">
@@ -132,6 +135,7 @@ function vertexFunction(geo, vertex) {
        return vertexFunction;
    }
   </script>
+  <script src="./js/geometry-processing-js/build/geometry-processing.min.js"></script>
   <script type="module" src="js/demo.js"></script>
 </body>
 
