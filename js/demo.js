@@ -281,32 +281,3 @@ function clearError() {
   document.getElementById("error-summary").innerHTML = "No errors";
   document.getElementById("error-details").innerHTML = "";
 }
-
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  const expires = "expires=" + d.toUTCString();
-  const cookieString =
-    cname +
-    "=" +
-    encodeURIComponent(cvalue) +
-    ";" +
-    expires +
-    ";path=/;SameSite=Strict";
-  document.cookie = cookieString;
-}
-
-function saveCodeToCookie(auto = true) {
-  document.getElementById("saving-notification").style.opacity = 1;
-  const code = editor.getSession().getValue();
-  setCookie("vertexFunctionCode", code, 10);
-
-  // Leave notification for a second and then remove
-  setTimeout(() => {
-    document.getElementById("saving-notification").style.opacity = 0;
-  }, 1000);
-}
-
-setInterval(() => {
-  saveCodeToCookie();
-}, 60000);

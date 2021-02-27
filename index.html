@@ -204,6 +204,38 @@ function vertexFunction(geo, vertex) {
           });
         });
 
+      //==============================
+      //      Cookie Stuff
+      //==============================
+      function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+        const expires = "expires=" + d.toUTCString();
+        const cookieString =
+          cname +
+          "=" +
+          encodeURIComponent(cvalue) +
+          ";" +
+          expires +
+          ";path=/;SameSite=Strict";
+        document.cookie = cookieString;
+      }
+
+      function saveCodeToCookie(auto = true) {
+        document.getElementById("saving-notification").style.opacity = 1;
+        const code = editor.getSession().getValue();
+        setCookie("vertexFunctionCode", code, 10);
+
+        // Leave notification for a second and then remove
+        setTimeout(() => {
+          document.getElementById("saving-notification").style.opacity = 0;
+        }, 1000);
+      }
+
+      setInterval(() => {
+        saveCodeToCookie();
+      }, 60000);
+
       function getCookie(cname) {
         const name = cname + "=";
         const ca = document.cookie.split(";");
@@ -219,14 +251,30 @@ function vertexFunction(geo, vertex) {
         return "";
       }
 
+      editor.commands.addCommand({
+        name: "saveFile",
+        bindKey: {
+          win: "Ctrl-S",
+          mac: "Command-S",
+          sender: "editor|cli",
+        },
+        exec: function (env, args, request) {
+          saveCodeToCookie();
+        },
+      });
+
       const code = getCookie("vertexFunctionCode");
       if (code != "") {
         editor.getSession().setValue(code);
       }
 
+      //==============================
+      //      Grab User's Code
+      //==============================
       // Helper to grab the definition of vertexFunction()
       // We can't do this inside js/demo.js since that's a module, which is in "strict mode"
-      // In strict mode, eval gets its own context, and you can't access variabled defined in the string from outside that context
+      // In strict mode, eval gets its own context, and you can't access variabled defined
+      // in the string from outside that context
       function extractVertexFunction() {
         const fnString = editor.getSession().getValue();
         eval(fnString);
