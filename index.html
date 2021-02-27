@@ -1,60 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Geometry Processing Alive!</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="js/geoptic.js/src/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <title>Geometry Processing Alive!</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="js/geoptic.js/src/style.css">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&display=swap" rel="stylesheet">
-</head>
-
-<body>
+  <body>
     <div class="header">
-    <h2 id="title">Geometry Processing Alive!</h2>
-    <div id="logos">
-        <a href="https://geometrycollective.github.io/geometry-processing-js/" target="_blank">
-        <img src="js/geometry-processing-js/imgs/logo.png" width="80" height="80" border="0">
+      <h2 id="title">Geometry Processing Alive!</h2>
+      <div id="logos">
+        <a
+          href="https://geometrycollective.github.io/geometry-processing-js/"
+          target="_blank"
+        >
+          <img
+            src="js/geometry-processing-js/imgs/logo.png"
+            width="80"
+            height="80"
+            border="0"
+          />
         </a>
-    </div>
+      </div>
     </div>
 
     <div class="resizeable">
-
-  <!-- Use the monokai background color by default - prevents white background jumping jarringly to dark gray -->
-  <pre id="editor" style="background-color: #272822;">/*
+      <!-- Use the monokai background color by default - prevents white background jumping jarringly to dark gray -->
+      <pre id="editor" style="background-color: #272822">
+/*
  * This function will be run on every vertex
  * and plotted to the right.
  */
 function vertexFunction(geo, vertex) {
     return geo.positions[vertex].x;
-}</pre>
-  <div id="resizer"></div>
-  <div id="geoptic-panel">
-      <div class="lds-roller" id="spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-  </div>
-  </div>
+}</pre
+      >
+      <div id="resizer"></div>
+      <div id="geoptic-panel">
+        <div class="lds-roller" id="spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
 
-  <div class="settings-bar">
-  <button id="run-button">Run Code</button>
+    <div class="settings-bar">
+      <button id="run-button">Run Code</button>
 
-  <div>
-    <label for="keybindings-select">Keybindings:</label>
-    <select name="keybindings" id="keybindings-select">
-        <option value="ace/keyboard/sublime">Sublime</option>
-        <option value="ace/keyboard/vscode">VSCode</option>
-        <option value="">Ace</option>
-        <option value="ace/keyboard/vim">Vim</option>
-        <option value="ace/keyboard/emacs">Emacs</option>
-    </select>
-  </div>
+      <div>
+        <label for="enable-autocomplete">Autocomplete</label>
+        <input
+          type="checkbox"
+          id="enable-autocomplete"
+          value="enable-autocomplete"
+        />
+      </div>
 
-  <div>
-    <label for="color-scheme-select">Color scheme:</label>
-    <select name="color-schemes" id="color-scheme-select">
-        <optgroup label="Bright">
+      <div>
+        <label for="keybindings-select">Keybindings:</label>
+        <select name="keybindings" id="keybindings-select">
+          <option value="ace/keyboard/sublime">Sublime</option>
+          <option value="ace/keyboard/vscode">VSCode</option>
+          <option value="">Ace</option>
+          <option value="ace/keyboard/vim">Vim</option>
+          <option value="ace/keyboard/emacs">Emacs</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="color-scheme-select">Color scheme:</label>
+        <select name="color-schemes" id="color-scheme-select">
+          <optgroup label="Bright">
             <option value="ace/theme/chrome">Chrome</option>
             <option value="ace/theme/clouds">Clouds</option>
             <option value="ace/theme/crimson_editor">Crimson Editor</option>
@@ -70,8 +102,8 @@ function vertexFunction(geo, vertex) {
             <option value="ace/theme/kuroir">Kuroir</option>
             <option value="ace/theme/katzenmilch">KatzenMilch</option>
             <option value="ace/theme/sqlserver">SQL Server</option>
-        </optgroup>
-        <optgroup label="Dark">
+          </optgroup>
+          <optgroup label="Dark">
             <option value="ace/theme/ambiance">Ambiance</option>
             <option value="ace/theme/chaos">Chaos</option>
             <option value="ace/theme/clouds_midnight">Clouds Midnight</option>
@@ -90,58 +122,81 @@ function vertexFunction(geo, vertex) {
             <option value="ace/theme/solarized_dark">Solarized Dark</option>
             <option value="ace/theme/terminal">Terminal</option>
             <option value="ace/theme/tomorrow_night">Tomorrow Night</option>
-            <option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option>
-            <option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option>
-            <option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option>
+            <option value="ace/theme/tomorrow_night_blue">
+              Tomorrow Night Blue
+            </option>
+            <option value="ace/theme/tomorrow_night_bright">
+              Tomorrow Night Bright
+            </option>
+            <option value="ace/theme/tomorrow_night_eighties">
+              Tomorrow Night 80s
+            </option>
             <option value="ace/theme/twilight">Twilight</option>
             <option value="ace/theme/vibrant_ink">Vibrant Ink</option>
-        </optgroup>
-    </select>
+          </optgroup>
+        </select>
+      </div>
     </div>
-  </div>
 
+    <script src="https://pagecdn.io/lib/ace/1.4.12/ace.js"></script>
+    <!-- Preload monokai (default color scheme) and mode-javascript -->
+    <script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.js"></script>
+    <script src="https://pagecdn.io/lib/ace/1.4.12/mode-javascript.js"></script>
+    <script src="https://pagecdn.io/lib/ace/1.4.12/snippets/javascript.js"></script>
 
-  <script src="https://pagecdn.io/lib/ace/1.4.12/ace.js"></script>
-  <!-- Preload monokai (default color scheme) and mode-javascript -->
-  <script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.js"></script>
-  <script src="https://pagecdn.io/lib/ace/1.4.12/mode-javascript.js"></script>
-  <script src="https://pagecdn.io/lib/ace/1.4.12/snippets/javascript.js"></script>
+    <!-- load ace language tools -->
+    <script src="https://pagecdn.io/lib/ace/1.4.12/ext-language_tools.min.js"></script>
+    <script type="text/javascript">
+    // Load Ace editor and set options
+      var editor = ace.edit("editor");
+      if (document.getElementById("enable-autocomplete").checked) {
+        editor.setOptions({
+          enableBasicAutocompletion: true,
+          enableSnippets: true,
+          enableLiveAutocompletion: true,
+        });
+      }
 
-  <!-- load ace language tools -->
-  <script src="https://pagecdn.io/lib/ace/1.4.12/ext-language_tools.min.js"></script>
-  <script type="text/javascript">
-   // Load Ace editor and set options
-    var editor = ace.edit("editor");
-   editor.setOptions({
-       enableBasicAutocompletion: true,
-       enableSnippets: true,
-       enableLiveAutocompletion: true
-   });
-   editor.setShowPrintMargin(false);
-    editor.setTheme(document.getElementById("color-scheme-select").selectedOptions[0].value);
-    editor.session.setMode("ace/mode/javascript");
-    editor.setKeyboardHandler(document.getElementById("keybindings-select").selectedOptions[0].value);
+      editor.setShowPrintMargin(false);
+      editor.setTheme(
+        document.getElementById("color-scheme-select").selectedOptions[0].value
+      );
+      editor.session.setMode("ace/mode/javascript");
+      editor.setKeyboardHandler(
+        document.getElementById("keybindings-select").selectedOptions[0].value
+      );
 
-    document.getElementById("keybindings-select").addEventListener("change", (e)=>{
-        editor.setKeyboardHandler(e.target.selectedOptions[0].value);
-    });
-   document.getElementById("color-scheme-select").addEventListener("change", (e)=>{
-       /* Clear any styling that's been set on editor (e.g. setting background color to monokai by default) */
-       document.getElementById("editor").style = "";
-        editor.setTheme(e.target.selectedOptions[0].value);
-    });
+      document
+        .getElementById("keybindings-select")
+        .addEventListener("change", (e) => {
+          editor.setKeyboardHandler(e.target.selectedOptions[0].value);
+        });
+      document
+        .getElementById("color-scheme-select")
+        .addEventListener("change", (e) => {
+          /* Clear any styling that's been set on editor (e.g. setting background color to monokai by default) */
+          document.getElementById("editor").style = "";
+          editor.setTheme(e.target.selectedOptions[0].value);
+        });
+     document.getElementById("enable-autocomplete").addEventListener("change", (e)=>{
+         const do_auto = document.getElementById("enable-autocomplete").checked;
+         editor.setOptions({
+             enableBasicAutocompletion: do_auto,
+             enableSnippets: do_auto,
+             enableLiveAutocompletion: do_auto,
+         });
+     });
 
-   // Helper to grab the definition of vertexFunction()
-   // We can't do this inside js/demo.js since that's a module, which is in "strict mode"
-   // In strict mode, eval gets its own context, and you can't access variabled defined in the string from outside that context
-   function extractVertexFunction() {
-       const fnString = editor.getSession().getValue();
-       eval(fnString);
-       return vertexFunction;
-   }
-  </script>
-  <script src="./js/geometry-processing-js/build/geometry-processing.min.js"></script>
-  <script type="module" src="js/demo.js"></script>
-</body>
-
+      // Helper to grab the definition of vertexFunction()
+      // We can't do this inside js/demo.js since that's a module, which is in "strict mode"
+      // In strict mode, eval gets its own context, and you can't access variabled defined in the string from outside that context
+      function extractVertexFunction() {
+        const fnString = editor.getSession().getValue();
+        eval(fnString);
+        return vertexFunction;
+      }
+    </script>
+    <script src="./js/geometry-processing-js/build/geometry-processing.min.js"></script>
+    <script type="module" src="js/demo.js"></script>
+  </body>
 </html>
