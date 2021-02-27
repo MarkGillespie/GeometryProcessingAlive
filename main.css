@@ -45,6 +45,37 @@ body {
   right: 0;
 }
 
+#error-msgs {
+    background-color: #1b8a1f20;
+    color: #131;
+    padding: 0.25em;
+}
+
+#error-msgs.bad {
+    background-color: #8a1f1b20;
+    color: #911;
+    padding: 0.25em;
+}
+
+#error-details {
+    padding: 0.25em;
+    padding-left: 2em;
+    color: #000
+}
+
+#error-summary span {
+    color: #000;
+    float: right;
+}
+
+#error-msgs .line-number {
+    color: #008;
+}
+
+#error-msgs .line-number::before {
+    content: ':';
+}
+
 .resizeable {
     display: flex;
     width: 100%;
