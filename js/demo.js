@@ -251,6 +251,16 @@ function reportError(e) {
       errorDetailBox.appendChild(errReport);
     }
   }
+
+  // Open the message box to measure its height so that we can animate it
+  const msgBox = document.getElementById("error-msgs");
+  const wasOpen = msgBox.open;
+  msgBox.open = true;
+  const errHeight = msgBox.scrollHeight;
+  msgBox.open = wasOpen;
+
+  // Tell the error box how tall it is so that it can animate opening and closing
+  msgBox.style.setProperty("--height-open", errHeight + "px");
 }
 
 function clearError() {

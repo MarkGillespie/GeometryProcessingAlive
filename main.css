@@ -15,8 +15,8 @@ body {
     align-content: center;
     flex-direction: column;
 
-    background-color: #1b1f8a10;
-    box-shadow: 0px 0px 8px #0003;
+    background-color: #f5f5ff;
+    box-shadow: 0px 0px 3px #0004;
     position: relative;
     z-index: 6;
 
@@ -24,10 +24,10 @@ body {
 }
 
 .settings-bar {
-    background-color: #1b1f8a10;
-    box-shadow: 0px -1px 3px #0002;
+    background-color: #f5f5ff;
+    box-shadow: 0px 0px 3px #0004;
     position: relative;
-    z-index: 6;
+    z-index: 3;
     padding: 0.25em;
 }
 
@@ -74,6 +74,21 @@ body {
 
 #error-msgs .line-number::before {
     content: ':';
+}
+
+.details-animated {
+    transition: max-height 0.15s ease-in-out;
+    overflow: auto;
+}
+.details-animated:not([open]) {
+    max-height: 1.25em;
+}
+@keyframes hide-scroll {
+    from, to { overflow: hidden; }
+}
+.details-animated[open] {
+    max-height: var(--height-open);
+    animation: hide-scroll 0.15s;
 }
 
 .resizeable {
