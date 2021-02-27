@@ -1,6 +1,6 @@
 import * as THREE from "https://unpkg.com/three@0.125.1/build/three.module.js";
-// import { Geoptic } from "./geoptic.js/build/geoptic.module.min.js";
-import { Geoptic } from "./geoptic.js/src/geoptic.js";
+import { Geoptic } from "./geoptic.js/build/geoptic.module.min.js";
+// import { Geoptic } from "./geoptic.js/src/geoptic.js";
 
 import { bunny } from "./bunny.js";
 
@@ -30,85 +30,6 @@ function initMesh(meshFile) {
   mesh = new Mesh();
   mesh.build(soup);
   geo = new Geometry(mesh, soup.v);
-}
-
-function reportError(e) {
-  const stack = e.stack.split(/\r?\n/); // Allow windows line endings
-
-  // Chrome starts the stack with a description of the error. We'll trim that off
-  if (stack[0] == e.toString()) stack.shift();
-
-  document.getElementById("error-msgs").classList.add("bad");
-  document.getElementById("error-summary").innerHTML =
-    e.name + ": " + e.message;
-  const errorDetailBox = document.getElementById("error-details");
-  errorDetailBox.innerHTML = "";
-
-  let first = true;
-  for (let i = 0; i < stack.length; i++) {
-    // Remove excess whitespace
-    stack[i] = stack[i].trim();
-    // Chrome errors start with 'at '. We'll trim that off
-    if (stack[i].substring(0, 3) == "at ") {
-      stack[i] = stack[i].substring(3);
-    }
-
-    // Only report errors in the 'eval'ed part of the code
-    if (stack[i].includes("eval")) {
-      // split line on whitespace
-      const tokens = stack[i].split(/\s+/);
-      let fnName = tokens[0];
-      // Firefox reports name@url - we trim off the @url for brevity
-      const iAt = fnName.indexOf("@");
-      if (iAt >= 0) {
-        fnName = fnName.substring(0, iAt);
-      }
-
-      let lineNo = tokens[tokens.length - 1];
-      // On both Firefox and Chrome, lineNo has the form name:row:col
-      // We'll just extract the row.
-      // First, drop everything up to and including the first ':'
-      lineNo = lineNo.substring(lineNo.indexOf(":") + 1);
-      // Now, drop everything after the remaining ':'
-      lineNo = lineNo.substring(0, lineNo.indexOf(":"));
-
-      // <div errReport>
-      //     <span nameReport>fnName</span>
-      //     <span lineReport class="line-number">lineNo</span>
-      // </div>
-      const errReport = document.createElement("div");
-      const nameReport = document.createElement("span");
-      nameReport.innerHTML = fnName;
-      const lineReport = document.createElement("span");
-      lineReport.classList.add("line-number");
-      lineReport.innerHTML = lineNo;
-      errReport.appendChild(nameReport);
-      errReport.appendChild(lineReport);
-
-      // If this is the top-level error, also show it in the summary box
-      if (first) {
-        const topNameReport = document.createElement("span");
-        topNameReport.innerHTML = fnName;
-        const topLineReport = document.createElement("span");
-        topLineReport.classList.add("line-number");
-        topLineReport.innerHTML = lineNo;
-
-        // These get added in reverse order because they're styled with float: right
-        document.getElementById("error-summary").appendChild(topLineReport);
-        document.getElementById("error-summary").appendChild(topNameReport);
-
-        first = false;
-      }
-
-      errorDetailBox.appendChild(errReport);
-    }
-  }
-}
-
-function clearError() {
-  document.getElementById("error-msgs").classList.remove("bad");
-  document.getElementById("error-summary").innerHTML = "No errors";
-  document.getElementById("error-details").innerHTML = "";
 }
 
 function runVertexCode() {
@@ -208,3 +129,132 @@ const mouseUpHandler = function () {
 
 // Attach the handler
 resizer.addEventListener("mousedown", mouseDownHandler);
+
+function exportFile(filename, text) {
+  let element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+function loadFile(text) {
+  editor.getSession().setValue(text);
+}
+
+document.getElementById("fileInput").addEventListener("change", function (e) {
+  let file = document.getElementById("fileInput").files[0];
+  const filename = file.name;
+
+  if (filename.endsWith(".js")) {
+    let reader = new FileReader();
+    reader.onload = function (e) {
+      loadFile(reader.result);
+    };
+
+    reader.onerror = function (e) {
+      alert("Unable to load file " + filename);
+    };
+
+    reader.readAsText(file);
+  } else {
+    alert("Please load a *.js file");
+  }
+});
+
+document.getElementById("save-button").addEventListener("click", () => {
+  const code = editor.getSession().getValue();
+  console.log(code);
+  exportFile("geometry-processing-alive.js", code);
+});
+
+document.getElementById("load-button").addEventListener("click", () => {
+  document.getElementById("fileInput").click();
+});
+
+function reportError(e) {
+  const stack = e.stack.split(/\r?\n/); // Allow windows line endings
+
+  // Chrome starts the stack with a description of the error. We'll trim that off
+  if (stack[0] == e.toString()) stack.shift();
+
+  document.getElementById("error-msgs").classList.add("bad");
+  document.getElementById("error-summary").innerHTML =
+    e.name + ": " + e.message;
+  const errorDetailBox = document.getElementById("error-details");
+  errorDetailBox.innerHTML = "";
+
+  let first = true;
+  for (let i = 0; i < stack.length; i++) {
+    // Remove excess whitespace
+    stack[i] = stack[i].trim();
+    // Chrome errors start with 'at '. We'll trim that off
+    if (stack[i].substring(0, 3) == "at ") {
+      stack[i] = stack[i].substring(3);
+    }
+
+    // Only report errors in the 'eval'ed part of the code
+    if (stack[i].includes("eval")) {
+      // split line on whitespace
+      const tokens = stack[i].split(/\s+/);
+      let fnName = tokens[0];
+      // Firefox reports name@url - we trim off the @url for brevity
+      const iAt = fnName.indexOf("@");
+      if (iAt >= 0) {
+        fnName = fnName.substring(0, iAt);
+      }
+
+      let lineNo = tokens[tokens.length - 1];
+      // On both Firefox and Chrome, lineNo has the form name:row:col
+      // We'll just extract the row.
+      // First, drop everything up to and including the first ':'
+      lineNo = lineNo.substring(lineNo.indexOf(":") + 1);
+      // Now, drop everything after the remaining ':'
+      lineNo = lineNo.substring(0, lineNo.indexOf(":"));
+
+      // <div errReport>
+      //     <span nameReport>fnName</span>
+      //     <span lineReport class="line-number">lineNo</span>
+      // </div>
+      const errReport = document.createElement("div");
+      const nameReport = document.createElement("span");
+      nameReport.innerHTML = fnName;
+      const lineReport = document.createElement("span");
+      lineReport.classList.add("line-number");
+      lineReport.innerHTML = lineNo;
+      errReport.appendChild(nameReport);
+      errReport.appendChild(lineReport);
+
+      // If this is the top-level error, also show it in the summary box
+      if (first) {
+        const topNameReport = document.createElement("span");
+        topNameReport.innerHTML = fnName;
+        const topLineReport = document.createElement("span");
+        topLineReport.classList.add("line-number");
+        topLineReport.innerHTML = lineNo;
+
+        // These get added in reverse order because they're styled with float: right
+        document.getElementById("error-summary").appendChild(topLineReport);
+        document.getElementById("error-summary").appendChild(topNameReport);
+
+        first = false;
+      }
+
+      errorDetailBox.appendChild(errReport);
+    }
+  }
+}
+
+function clearError() {
+  document.getElementById("error-msgs").classList.remove("bad");
+  document.getElementById("error-summary").innerHTML = "No errors";
+  document.getElementById("error-details").innerHTML = "";
+}

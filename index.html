@@ -33,6 +33,14 @@
         </a>
       </div>
     </div>
+    <div class="settings-bar">
+        <button id="run-button">Run Code</button>
+        <button id="save-button">Save</button>
+        <button id="load-button">Load</button>
+
+        <!-- Hidden file input for loading files -->
+		    <input type="file" id="fileInput" style="visibility:hidden">
+    </div>
 
     <div class="resizeable">
       <!-- Use the monokai background color by default - prevents white background jumping jarringly to dark gray -->
@@ -42,7 +50,6 @@
  * and plotted to the right.
  */
 function vertexFunction(geo, vertex) {
-    cause_an_err
     return geo.positions[vertex].x;
 }</pre
       >
@@ -67,7 +74,6 @@ function vertexFunction(geo, vertex) {
     </details>
 
     <div class="settings-bar">
-      <button id="run-button">Run Code</button>
 
       <div>
         <label for="enable-autocomplete">Autocomplete</label>
