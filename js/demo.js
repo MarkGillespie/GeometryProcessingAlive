@@ -33,7 +33,16 @@ function initMesh(meshFile) {
 }
 
 function runVertexCode() {
-  const vertexFunction = extractVertexFunction();
+  let vertexFunction = undefined;
+  try {
+    vertexFunction = extractVertexFunction();
+  } catch (e) {
+    reportError(e);
+
+    // Print error, using console.error if available but falling back to console.log otherwise
+    (console.error || console.log).call(console, e);
+    return;
+  }
   const vertexValues = [];
   for (let v of geo.mesh.vertices) {
     try {
@@ -170,10 +179,14 @@ document.getElementById("fileInput").addEventListener("change", function (e) {
   }
 });
 
-document.getElementById("save-button").addEventListener("click", () => {
+document.getElementById("download-button").addEventListener("click", () => {
   const code = editor.getSession().getValue();
   console.log(code);
   exportFile("geometry-processing-alive.js", code);
+});
+
+document.getElementById("save-button").addEventListener("click", () => {
+  saveCodeToCookie();
 });
 
 document.getElementById("load-button").addEventListener("click", () => {
@@ -268,3 +281,32 @@ function clearError() {
   document.getElementById("error-summary").innerHTML = "No errors";
   document.getElementById("error-details").innerHTML = "";
 }
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  const expires = "expires=" + d.toUTCString();
+  const cookieString =
+    cname +
+    "=" +
+    encodeURIComponent(cvalue) +
+    ";" +
+    expires +
+    ";path=/;SameSite=Strict";
+  document.cookie = cookieString;
+}
+
+function saveCodeToCookie(auto = true) {
+  document.getElementById("saving-notification").style.opacity = 1;
+  const code = editor.getSession().getValue();
+  setCookie("vertexFunctionCode", code, 10);
+
+  // Leave notification for a second and then remove
+  setTimeout(() => {
+    document.getElementById("saving-notification").style.opacity = 0;
+  }, 1000);
+}
+
+setInterval(() => {
+  saveCodeToCookie();
+}, 60000);

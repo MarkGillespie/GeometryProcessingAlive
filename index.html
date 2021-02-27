@@ -34,17 +34,20 @@
       </div>
     </div>
     <div class="settings-bar">
-        <button id="run-button">Run Code</button>
-        <button id="save-button">Save</button>
-        <button id="load-button">Load</button>
+      <button id="run-button">Run Code</button>
+      <button id="save-button">Save</button>
+      <button id="load-button">Load</button>
+      <button id="download-button">Download</button>
 
-        <!-- Hidden file input for loading files -->
-		    <input type="file" id="fileInput" style="visibility:hidden">
+      <span id="saving-notification" style="opacity: 0">Saving...</span>
+
+      <!-- Hidden file input for loading files -->
+      <input type="file" id="fileInput" style="visibility: hidden" />
     </div>
 
     <div class="resizeable">
       <!-- Use the monokai background color by default - prevents white background jumping jarringly to dark gray -->
-        <pre id="editor" style="background-color: #272822">
+      <pre id="editor" style="background-color: #272822">
 /*
  * This function will be run on every vertex
  * and plotted to the right.
@@ -69,12 +72,11 @@ function vertexFunction(geo, vertex) {
     </div>
 
     <details id="error-msgs" class="details-animated">
-        <summary id="error-summary">No errors</summary>
-        <div id="error-details"></div>
+      <summary id="error-summary">No errors</summary>
+      <div id="error-details"></div>
     </details>
 
     <div class="settings-bar">
-
       <div>
         <label for="enable-autocomplete">Autocomplete</label>
         <input
@@ -159,7 +161,7 @@ function vertexFunction(geo, vertex) {
     <!-- load ace language tools -->
     <script src="https://pagecdn.io/lib/ace/1.4.12/ext-language_tools.min.js"></script>
     <script type="text/javascript">
-    // Load Ace editor and set options
+      // Load Ace editor and set options
       var editor = ace.edit("editor");
       if (document.getElementById("enable-autocomplete").checked) {
         editor.setOptions({
@@ -190,14 +192,37 @@ function vertexFunction(geo, vertex) {
           document.getElementById("editor").style = "";
           editor.setTheme(e.target.selectedOptions[0].value);
         });
-     document.getElementById("enable-autocomplete").addEventListener("change", (e)=>{
-         const do_auto = document.getElementById("enable-autocomplete").checked;
-         editor.setOptions({
-             enableBasicAutocompletion: do_auto,
-             enableSnippets: do_auto,
-             enableLiveAutocompletion: do_auto,
-         });
-     });
+      document
+        .getElementById("enable-autocomplete")
+        .addEventListener("change", (e) => {
+          const do_auto = document.getElementById("enable-autocomplete")
+            .checked;
+          editor.setOptions({
+            enableBasicAutocompletion: do_auto,
+            enableSnippets: do_auto,
+            enableLiveAutocompletion: do_auto,
+          });
+        });
+
+      function getCookie(cname) {
+        const name = cname + "=";
+        const ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return decodeURIComponent(c.substring(name.length, c.length));
+          }
+        }
+        return "";
+      }
+
+      const code = getCookie("vertexFunctionCode");
+      if (code != "") {
+        editor.getSession().setValue(code);
+      }
 
       // Helper to grab the definition of vertexFunction()
       // We can't do this inside js/demo.js since that's a module, which is in "strict mode"
