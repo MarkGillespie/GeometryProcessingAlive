@@ -2,7 +2,7 @@ import * as THREE from "https://unpkg.com/three@0.125.1/build/three.module.js";
 import { Geoptic } from "./geoptic.js/build/geoptic.module.min.js";
 // import { Geoptic } from "./geoptic.js/src/geoptic.js";
 
-import { bunny } from "./disk-bunny.js";
+import { bunny } from "./bunny.js";
 
 // import {
 //   Mesh,

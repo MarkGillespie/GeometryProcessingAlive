@@ -21,8 +21,10 @@
     </div>
     </div>
 
-  <div class="resizeable">
-  <pre id="editor">/*
+    <div class="resizeable">
+
+  <!-- Use the monokai background color by default - prevents white background jumping jarringly to dark gray -->
+  <pre id="editor" style="background-color: #272822;">/*
  * This function will be run on every vertex
  * and plotted to the right.
  */
@@ -103,18 +105,19 @@ function vertexFunction(geo, vertex) {
   <!-- Preload monokai (default color scheme) and mode-javascript -->
   <script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.js"></script>
   <script src="https://pagecdn.io/lib/ace/1.4.12/mode-javascript.js"></script>
+  <script src="https://pagecdn.io/lib/ace/1.4.12/snippets/javascript.js"></script>
 
   <!-- load ace language tools -->
   <script src="https://pagecdn.io/lib/ace/1.4.12/ext-language_tools.min.js"></script>
   <script type="text/javascript">
    // Load Ace editor and set options
     var editor = ace.edit("editor");
-    editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true
-    });
-    editor.setShowPrintMargin(false);
+   editor.setOptions({
+       enableBasicAutocompletion: true,
+       enableSnippets: true,
+       enableLiveAutocompletion: true
+   });
+   editor.setShowPrintMargin(false);
     editor.setTheme(document.getElementById("color-scheme-select").selectedOptions[0].value);
     editor.session.setMode("ace/mode/javascript");
     editor.setKeyboardHandler(document.getElementById("keybindings-select").selectedOptions[0].value);
@@ -122,7 +125,9 @@ function vertexFunction(geo, vertex) {
     document.getElementById("keybindings-select").addEventListener("change", (e)=>{
         editor.setKeyboardHandler(e.target.selectedOptions[0].value);
     });
-    document.getElementById("color-scheme-select").addEventListener("change", (e)=>{
+   document.getElementById("color-scheme-select").addEventListener("change", (e)=>{
+       /* Clear any styling that's been set on editor (e.g. setting background color to monokai by default) */
+       document.getElementById("editor").style = "";
         editor.setTheme(e.target.selectedOptions[0].value);
     });
 
