@@ -2,7 +2,7 @@ body {
   font-family : Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-y: scroll;
   min-height: 100vh;
 }
 
@@ -133,6 +133,12 @@ body {
     #logos {
         display: inline-block;
         position: static;
+    }
+
+    body {
+        /* Force vertical scroll bar to show up on mobile
+         * Otherwise I sometimes got stuck weirdly. */
+        height: 150vh;
     }
 }
 
