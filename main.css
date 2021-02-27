@@ -27,7 +27,7 @@ body {
     background-color: #f5f5ff;
     box-shadow: 0px 0px 3px #0004;
     position: relative;
-    z-index: 3;
+    z-index: 5;
     padding: 0.25em;
 }
 
@@ -52,13 +52,16 @@ body {
 }
 
 #error-msgs {
-    background-color: #1b8a1f20;
+    background-color: #f0fff0;
     color: #131;
     padding: 0.25em;
+    position: relative;
+    z-index: 4;
+    box-shadow: 0px 0px 3px #0004;
 }
 
 #error-msgs.bad {
-    background-color: #8a1f1b20;
+    background-color: #fff0f0;
     color: #911;
     padding: 0.25em;
 }
