@@ -135,6 +135,7 @@ body {
     margin: 0;
     position: relative;
     height: 50vw;
+    max-height: 75vh;
     padding-top: 0.5em;
     box-sizing: border-box;
     flex: 1 1 0%;
@@ -144,6 +145,7 @@ body {
     position:relative; /* needed to place child panels relative to this one */
     width: 49vw;
     height: 50vw;
+    max-height: 75vh;
     box-sizing: border-box;
     margin: 0;
     z-index: 2;
