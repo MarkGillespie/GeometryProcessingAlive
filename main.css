@@ -57,6 +57,12 @@ body {
     /* box-shadow:  3px 3px 5px #b3b3b3 */
                  /* -3px -3px 5px #ffffff; */
     border: none;
+    transition: background-color 0.25s;
+}
+
+
+.button-bar button:active {
+    background-color: #cce;
 }
 
 #title {

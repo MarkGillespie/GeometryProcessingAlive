@@ -66,7 +66,6 @@ function runVertexCode() {
 // Load the bunny mesh
 initMesh(bunny);
 runVertexCode();
-document.getElementById("run-button").onclick = runVertexCode;
 
 geoptic.doneLoading();
 
@@ -179,20 +178,6 @@ document.getElementById("fileInput").addEventListener("change", function (e) {
   }
 });
 
-document.getElementById("download-button").addEventListener("click", () => {
-  const code = editor.getSession().getValue();
-  console.log(code);
-  exportFile("geometry-processing-alive.js", code);
-});
-
-document.getElementById("save-button").addEventListener("click", () => {
-  saveCodeToCookie();
-});
-
-document.getElementById("load-button").addEventListener("click", () => {
-  document.getElementById("fileInput").click();
-});
-
 function reportError(e) {
   const stack = e.stack.split(/\r?\n/); // Allow windows line endings
 
@@ -283,7 +268,12 @@ function clearError() {
 }
 
 // === Unit tests
-mocha.setup("bdd"); //minimal setup
+mocha.setup("bdd"); // Simple setup, exports "describe" and "it" fns
+
+// Don't delete tests after running (Allows us to run tests multiple times)
+mocha.cleanReferencesAfterRun(false);
+
+// Define tests
 describe("Big Text", function () {
   describe("Medium Text", function () {
     it("is true", function () {
@@ -294,6 +284,7 @@ describe("Big Text", function () {
     });
   });
 });
+mocha.run(); // Show tests
 
 function showScene() {
   document.getElementById("geoptic-panel").style.display = "block";
@@ -304,9 +295,30 @@ function showTest() {
   document.getElementById("geoptic-panel").style.display = "none";
   document.getElementById("test-panel").style.display = "block";
 }
+
+// === Buttons
+document.getElementById("download-button").addEventListener("click", () => {
+  const code = editor.getSession().getValue();
+  console.log(code);
+  exportFile("geometry-processing-alive.js", code);
+});
+
+document.getElementById("save-button").addEventListener("click", () => {
+  saveCodeToCookie();
+});
+
+document.getElementById("load-button").addEventListener("click", () => {
+  document.getElementById("fileInput").click();
+});
 document.getElementById("show-test-button").onclick = showTest;
 document.getElementById("show-scene-button").onclick = showScene;
+document.getElementById("run-button").addEventListener("click", () => {
+  runVertexCode();
+  showScene();
+});
 document.getElementById("run-tests-button").onclick = () => {
+  // Delete old test results TODO: can mocha do this for me?
+  document.getElementById("mocha").innerHTML = "";
   mocha.run();
+  showTest();
 };
-mocha.run(); // Show tests
