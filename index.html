@@ -14,6 +14,16 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&display=swap"
       rel="stylesheet"
     />
+
+    <!-- add mocha css, to show results -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css"
+    />
+    <!-- add mocha framework code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+    <!-- add chai -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
   </head>
 
   <body>
@@ -35,6 +45,7 @@
     </div>
     <div class="button-bar">
       <button id="run-button">Run Code</button>
+      <button id="run-tests-button">Run Tests</button>
       <button id="save-button">Save</button>
       <button id="load-button">Load</button>
       <button id="download-button">Download</button>
@@ -42,7 +53,11 @@
       <span id="saving-notification" style="opacity: 0">Saving...</span>
 
       <!-- Hidden file input for loading files -->
-      <input type="file" id="fileInput" style="visibility: hidden; position: absolute; left: 0;top: 0;" />
+      <input
+        type="file"
+        id="fileInput"
+        style="visibility: hidden; position: absolute; left: 0; top: 0"
+      />
     </div>
 
     <div class="resizeable">
@@ -57,16 +72,23 @@ function vertexFunction(geo, vertex) {
 }</pre
       >
       <div id="resizer"></div>
-      <div id="geoptic-panel">
-        <div class="lds-roller" id="spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+      <div id="content-panel">
+        <button id="show-test-button">View Tests</button>
+        <button id="show-scene-button">View Scene</button>
+        <div id="geoptic-panel">
+            <div class="lds-roller" id="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div id="test-panel"  style="display:none;">
+          <div id="mocha"></div>
         </div>
       </div>
     </div>
@@ -280,6 +302,10 @@ function vertexFunction(geo, vertex) {
         eval(fnString);
         return vertexFunction;
       }
+
+      //==============================
+      //      Set up mocha (testing framework)
+     //==============================
     </script>
     <script src="./js/geometry-processing-js/build/geometry-processing.min.js"></script>
     <script type="module" src="js/demo.js"></script>

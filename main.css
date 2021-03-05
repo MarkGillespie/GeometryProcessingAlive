@@ -165,7 +165,7 @@ body {
     flex: 1 1 0%;
 }
 
-#geoptic-panel {
+#content-panel {
     position:relative; /* needed to place child panels relative to this one */
     width: 49vw;
     height: 50vw;
@@ -173,6 +173,20 @@ body {
     box-sizing: border-box;
     margin: 0;
     z-index: 2;
+}
+
+#content-panel button {
+    position: relative;
+    z-index: 5;
+    float: right;
+}
+
+#geoptic-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 @media only screen and (max-width: 800px)  {
@@ -187,7 +201,7 @@ body {
         width: 100%;
         flex: 0 1 auto;
     }
-    #geoptic-panel {
+    #content-panel {
         height: 50vw;
 
         /* js sets width in two-column mode. Use !important
@@ -241,4 +255,8 @@ body {
 /* Hide geoptic message box. It interferes with clicks sometimes */
 #messages {
     display: none;
+}
+
+#mocha-stats {
+    position: relative !important;
 }

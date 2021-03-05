@@ -281,3 +281,32 @@ function clearError() {
   document.getElementById("error-summary").innerHTML = "No errors";
   document.getElementById("error-details").innerHTML = "";
 }
+
+// === Unit tests
+mocha.setup("bdd"); //minimal setup
+describe("Big Text", function () {
+  describe("Medium Text", function () {
+    it("is true", function () {
+      chai.assert.strictEqual(5, 5);
+    });
+    it("is false", function () {
+      chai.assert.strictEqual(5, 6);
+    });
+  });
+});
+
+function showScene() {
+  document.getElementById("geoptic-panel").style.display = "block";
+  document.getElementById("test-panel").style.display = "none";
+  geoptic.onWindowResize();
+}
+function showTest() {
+  document.getElementById("geoptic-panel").style.display = "none";
+  document.getElementById("test-panel").style.display = "block";
+}
+document.getElementById("show-test-button").onclick = showTest;
+document.getElementById("show-scene-button").onclick = showScene;
+document.getElementById("run-tests-button").onclick = () => {
+  mocha.run();
+};
+mocha.run(); // Show tests
